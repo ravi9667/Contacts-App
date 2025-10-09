@@ -5,7 +5,7 @@ import Button from "../../ReusableComponents/Button/Button"
 import { useNavigate } from "react-router";
 import "./login.scss";
 
-const Login = () => {
+const Login = ({login, setUser}) => {
     const navigate = useNavigate();
     const [ isPasswordHidden, setIsPasswordHidden ] = useState(true)
     const [loginFormData, setLoginFormData] = useState({
@@ -21,6 +21,23 @@ const Login = () => {
             setIsPasswordHidden(false);
         } else {
             setIsPasswordHidden(true);
+        }
+    }
+
+    const handleLogin = async () => {
+        try {
+            const response = await login(loginFormData);
+            console.log("login Response", response);
+
+            if(response.ok === true) {
+                navigate('/dashboard')
+                setUser(response)
+            } else {
+                alert(response.message || "Login failed");
+            }
+        } catch(err) {
+            alert("Something went wrong during login !!")
+            console.log(err)
         }
     }
 
@@ -53,9 +70,8 @@ const Login = () => {
                         <label>Password</label>
                         {loginFormData.password.trim().length ? <img src={isPasswordHidden ? hide: show} alt="Eye Icon" onClick={showPassword} className="showIcon"/> : null}
                     </div>
-                    <Button innerText="Login" />
+                    <Button innerText="Login" onClick={handleLogin} />
                     <p>Don't have an Account <span onClick={() => navigate('/signup')}>SignUp</span></p>
-                    <p onClick={() => navigate('/dashboard')}>Dashboard</p>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
     res.send("This is Home Tab")
 });
 
-app.post("/signUp", async (req, res) => {
+app.post("/signup", async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
@@ -95,7 +95,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/fetchUser", async (req, res) => {
     try {
-        const {userId} = req.body;
+        const {userId} = req.query;
         if(!userId) {
             return res.send({
                 ok: false,

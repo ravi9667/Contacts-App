@@ -7,19 +7,16 @@ import logo from "../../assets/logo.png"
 import search from "../../assets/search.png"
 import add from "../../assets/addition.png"
 
-const Dashboard = () => {
+const Dashboard = ({user, fetchContacts}) => {
     const navigate = useNavigate()
-
-    const handleAddContact = () => {
-        setShowAddContact(true)
-    };
-
+    const fetchedContact = [fetchContacts];
+    
     return (
         <div className="dash-container">
             <div className="dash-header">
                 <div className="user-detail">
-                    <div className="user-name">Manik</div>
-                    <div className="user-email">manik123@gmail.com</div>
+                    <div className="user-name">{user.name}</div>
+                    <div className="user-email">{user.email}</div>
                 </div>
                 <h1 className="contact-header">Contacts</h1>
                 <img src={logo} alt="user-avtar" className="user-logo" />
@@ -39,7 +36,18 @@ const Dashboard = () => {
                     <p className="contact-title contact-empty"></p>
                 </div>
                 <div className="contacts">
-                    <Contact />
+                    {fetchedContact.map((contact, idx) => {
+                        return (
+                            <Contact 
+                                key={idx}
+                                userId={contact.userId}
+                                name={contact.name}
+                                phoneNumber={contact.phoneNumber}
+                                age={contact.age}
+                                contactId={contact._id}
+                            />
+                        )
+                    })}
                 </div>
             </div>
         </div>

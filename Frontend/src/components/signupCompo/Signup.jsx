@@ -5,7 +5,7 @@ import Button from "../../ReusableComponents/Button/Button"
 import { useNavigate } from "react-router";
 import './Signup.scss'
 
-const SignUp = () => {
+const SignUp = ({signup}) => {
     const navigate = useNavigate()
     const [ isPasswordHidden, setIsPasswordHidden ] = useState(true)
     const [signupFormData, setSignupFormData] = useState({
@@ -22,6 +22,21 @@ const SignUp = () => {
             setIsPasswordHidden(false);
         } else {
             setIsPasswordHidden(true);
+        }
+    }
+
+    const handleSignup = async () => {
+        try {
+            const response = await signup(signupFormData);
+
+            if(response.ok === true) {
+                navigate('/')
+            } else {
+                alert(response.message, "SignUp Failed")
+            }
+        } catch(err) {
+            alert("Something went wrong during SignUp !!")
+            console.log(err)
         }
     }
 
@@ -65,7 +80,7 @@ const SignUp = () => {
                         <label>Password</label>
                         {signupFormData.password.trim().length ? <img src={isPasswordHidden ? hide: show} alt="Eye Icon" onClick={showPassWord} className="showIcon"/> : null}
                     </div>
-                    <Button innerText="SignUp" />
+                    <Button innerText="SignUp" onClick={handleSignup} />
                     <p>Already have an Account <span onClick={() => navigate('/')}>Login</span></p>
                 </div>
             </div>
