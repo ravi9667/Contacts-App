@@ -1,0 +1,39 @@
+.contact-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    
+    .name {
+        margin: 0;
+        width: 40%;
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .phoneNum {
+        margin: 0;
+        width: 25%;
+        text-align: center;
+    }
+    .age {
+        margin: 0;
+        width: 20%;
+        text-align: center;
+    }
+    .delete-box {
+        width: 15%;
+        text-align: center;
+    }
+    img {
+        width: 21px;
+        height: 21px;
+        
+        &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        &:active {
+            opacity: 1;
+        }
+    }
+}

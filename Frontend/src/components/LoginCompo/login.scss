@@ -1,0 +1,110 @@
+@import "../../colors/colors.scss";
+
+body {
+    background: $bg-color;
+    font-family: Arial, sans-serif;
+}
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    padding: 40px;
+
+    .left-image {
+        /* background: url('./images/character-background.png') no-repeat center center; */
+        background-size: contain;
+    }
+    .login-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .login-card {
+            background: $card-bg;
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 350px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+
+            .login-Heading {
+                text-align: center;
+                font-size: 32px;
+                color: $primary-color;
+                font-weight: bold;
+                margin-bottom: 30px;
+            }
+        }
+    }
+
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+.group-1 {
+    margin-bottom: 20px;
+}
+.input-group input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid $input-border;
+    padding: 12px 5px 8px 0;
+    font-size: 15px;
+    color: $text-color;
+    background: transparent;
+    outline: none;
+    transition: border-color 0.3s ease;
+    padding-right: 40px;
+}
+.input-group input:focus {
+    border-color: $input-focus;
+}
+.input-group label {
+    position: absolute;
+    left: 0px;
+    top: 12px;
+    font-size: 14px;
+    color: $label-color;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background: $card-bg;
+    /* padding: 0 4px; */
+}
+.input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label {
+    transform: translateY(-16px);
+    font-size: 12px;
+    color: $primary-color;
+}
+p {
+    margin-top: 15px;
+    color: $text-color;
+    text-align: center;
+    font-size: 14px;
+}
+p span {
+    color: $link-color;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: underline;
+}
+.show-password {
+    color: cornflowerblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+.group-2 {
+    position: relative;
+}
+.showIcon {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: 23px;
+}

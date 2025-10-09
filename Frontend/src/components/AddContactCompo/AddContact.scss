@@ -1,0 +1,93 @@
+.addContact-cont {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 50px 50px;
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    .cancel-btn {
+        color: black;
+        opacity: 0.9;
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        font-size: 30px;
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #e74c3c;
+        }
+    }
+
+    .addContact-heading {
+        text-align: center;
+        color: rgb(27, 26, 26);
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        font-size: 2.5rem;
+        margin: 30px 0;
+    }
+
+    .input-box {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        max-width: 400px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+
+        .input-groups {
+            position: relative;
+            width: 100%;
+    
+            .input {
+                width: 100%;
+                padding: 14px 12px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #f5f5f5;
+                color: #333;
+                outline: none;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+                &:focus {
+                    border: 1px solid #666666;
+                    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+                }
+            }
+    
+            .labels {
+                position: absolute;
+                left: 12px;
+                top: 14px;
+                font-size: 14px;
+                color: #666;
+                padding: 0 4px;
+                pointer-events: none;
+                transition: all 0.3s ease;
+            }
+            
+            .input:focus+.labels,
+            .input:not(:placeholder-shown)+.labels {
+                top: -10px;
+                left: 20px;
+                background-color: #f5f5f5;
+            }
+        }
+
+    }
+
+    button {
+        margin-top: 30px;
+        background-color: #0d00c9;
+        
+        &:hover {
+            background-color: #007bff;
+        }
+    }
+}

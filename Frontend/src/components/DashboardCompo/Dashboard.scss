@@ -1,0 +1,135 @@
+@import "../../colors/colors.scss";
+
+@mixin font1($size, $weight) {
+    font-size: $size;
+    font-weight: $weight;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dash-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 7px 5px;
+    
+    .dash-header {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 7px;
+
+        .user-detail {
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+
+            .user-name {
+                @include font1(1rem,500);
+                color: rgba(0, 0, 0, 0.973);
+                
+            }
+            .user-email {
+                @include font1(0.7rem, 500)
+            }
+        }
+        .contact-header {
+            width: 60%;
+        }
+        .user-logo {
+            width: 50px;
+            justify-self: flex-end;
+        }
+    }
+    .search-addCont {
+        display: flex;
+        position: relative;
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-left: 10px;
+            // position: relative;
+
+            .search-icon {
+                width: 25px;
+                height: 26px;
+                padding: 1px;
+                // position: absolute;
+                left: 2px;
+                border: 1px solid #aaa9a9;
+                box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+                border-bottom-left-radius: 3px;
+                border-top-left-radius: 3px;
+            }
+            .search-input {
+                outline: none;
+                border: 1px solid #aaa9a9;
+                box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+                height: 26px;
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+                padding: 0 10px;
+            }
+        }
+        .addContact-btn {
+            display: flex;
+            width: 34px;
+            height: 32px;
+            position: absolute;
+            right: 10px;
+            
+            &:hover {
+                cursor: pointer;
+                opacity: 0.8;
+            }
+            &:active {
+                opacity: 1;
+            }
+        }
+        
+    }
+    .contacts-cntr {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+
+        .contact-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(0, 89, 255);
+            padding: 10px;
+            
+            .contact-title {
+                margin: 0;
+                color: white;
+                // width: 25%;
+            }
+            .contact-name {
+                width: 40%;
+                // position: relative;
+                // left: -25px;
+                text-align: center;
+            }
+            .contact-phnNo {
+                width: 25%;
+                // position: relative;
+                // left: -25px;
+                text-align: center;
+            }
+            .contact-age {
+                width: 20%;
+                // position: relative;
+                // left: -15px;
+                text-align: center;
+            }
+            .contact-empty {
+                width: 15%;
+            }
+        }
+    }
+}
