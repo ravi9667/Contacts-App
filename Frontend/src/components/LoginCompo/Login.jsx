@@ -30,8 +30,11 @@ const Login = ({login, setUser}) => {
             console.log("login Response", response);
 
             if(response.ok === true) {
-                navigate('/dashboard')
-                setUser(response)
+                setUser({
+                    ...response.data,
+                    id: response.data._id
+                });
+                navigate('/dashboard');
             } else {
                 alert(response.message || "Login failed");
             }

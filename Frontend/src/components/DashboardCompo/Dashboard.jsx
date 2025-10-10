@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Contact from "../ContactsCompo/Contacts";
 import AddContact from "../AddContactCompo/AddContact";
 import { useNavigate } from "react-router";
@@ -9,7 +9,27 @@ import add from "../../assets/addition.png"
 
 const Dashboard = ({user, fetchContacts}) => {
     const navigate = useNavigate()
-    const fetchedContact = [fetchContacts];
+
+    const [fetchedContact, setFetchedContact] = useState([]);
+
+    useEffect(() => {
+        const getContacts = async () => {
+            if (user?.id) {
+                try {
+                    const response = await fetchContacts(user.id);
+                    if (response.ok) {
+                        setFetchedContact(response.contacts || []);
+                    } else {
+                        console.warn("Fetch contacts failed:", response.message);
+                    }
+                } catch (err) {
+                    console.error("Error fetching contacts:", err);
+                }
+            }
+        };
+
+        getContacts();
+    }, [user, fetchContacts]);
     
     return (
         <div className="dash-container">

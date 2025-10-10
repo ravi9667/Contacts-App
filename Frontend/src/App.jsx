@@ -8,6 +8,7 @@ import './App.scss'
 
 function App() {
     const [ user, setUser ] = useState(null)
+    const [ fetchingContact, setFetchingContact ] = useState([])
 
     // Login Api Call -->
     async function login(loginData) {
@@ -59,26 +60,57 @@ function App() {
                 throw err;
             }
         }  
-    },[user])
+    },[setUser])
 
-    // FetchContacts Api call 
+    // FetchContacts Api call
+    // FetchContacts Api call -->
     const fetchContacts = async (userId) => {
         try {
             const response = await fetch(`http://127.0.0.1:5050/fetchUser?userId=${userId}`)
             const data = await response.json();
             return data;
         } catch(err) {
-            console.log("FatchContact Error", err);
+            console.log("FetchContact Error", err);
             throw err
         }
+    }
+
+    useEffect(() => {
+        if (user && user.id) {
+            fetchContacts(user.id).then(data => {
+                setFetchingContact(data.contacts || []);
+            });
+        }
+    }, [user])
+
+
+    // AddContact Api Call
+    const addContact = async (addContactData) => {
+        try {
+            const response = await fetch("http://127.0.0.1:5050/addContact", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                },
+                body: JSON.stringify(addContactData)
+            });
+
+            const data = await response.json();
+            return data;
+        } catch(err) {
+            console.log("addContact Error", err);
+            throw err;
+        }
+
+    
     }
 
     return (
         <Routes>
             <Route path='/' element={ <Login login={login} setUser={setUser} /> } />
             <Route path='/signup' element={ <SignUp signup={signup} /> } />
-            <Route path='/dashboard' element={ <Dashboard user={user} fetchContacts={fetchContacts} /> } />
-            <Route path='/addContact' element={ <AddContact /> } />
+            <Route path='/dashboard' element={ <Dashboard user={user} fetchContactS={fetchContacts} /> } />
+            <Route path='/addContact' element={ <AddContact addContact={addContact} user={user} setFetchingContact={setFetchingContact} /> } />
         </Routes>
         // <Dashboard />
         // <AddContact />

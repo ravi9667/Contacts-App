@@ -138,7 +138,7 @@ app.get("/fetchUser", async (req, res) => {
 
 app.get("/fetchContacts", async (req, res) => {
     try {
-        const { userId } = req.body;
+        const { userId } = req.query;
         if(!userId) {
             return res.send({
                 ok: false,
