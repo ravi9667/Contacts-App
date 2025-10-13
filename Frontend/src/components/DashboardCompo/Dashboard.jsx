@@ -7,7 +7,7 @@ import logo from "../../assets/logo.png"
 import search from "../../assets/search.png"
 import add from "../../assets/addition.png"
 
-const Dashboard = ({user, fetchContacts}) => {
+const Dashboard = ({fetchContacts}) => {
     const navigate = useNavigate()
 
     const [fetchedContact, setFetchedContact] = useState([]);

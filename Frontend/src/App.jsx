@@ -7,8 +7,6 @@ import AddContact from './components/AddContactCompo/AddContact';
 import './App.scss'
 
 function App() {
-    const [ user, setUser ] = useState(null)
-    const [ fetchingContact, setFetchingContact ] = useState([])
 
     // Login Api Call -->
     async function login(loginData) {
@@ -22,7 +20,11 @@ function App() {
             });
 
             const data = await response.json();
-            return data
+            if (data && data?.id) {
+                await fetchUser(data?.id)
+                await fetchContacts(data?.id)
+            }
+            return data;
         } catch(err) {
             console.error("Login API error:", err);
             alert(err)
@@ -49,40 +51,30 @@ function App() {
     }
 
     // FetchUser Api Call -->
-    useEffect(() => {
-        const fetchUser = async (userId) => {
-            try {
-                const response = await fetch(`http://127.0.0.1:5050/fetchUser?userId=${userId}`)
-                const data = await response.json();
-                return data
-            } catch(err) {
-                console.log("FatchUser Error", err);
-                throw err;
-            }
-        }  
-    },[setUser])
+    const fetchUser = async (userId) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:5050/fetchUser?userId=${userId}`)
+            const data = await response.json();
+            console.log("fetchUser", data)
+            return data
+        } catch(err) {
+            console.log("FatchUser Error", err);
+            throw err;
+        }
+    }  
 
-    // FetchContacts Api call
     // FetchContacts Api call -->
     const fetchContacts = async (userId) => {
         try {
             const response = await fetch(`http://127.0.0.1:5050/fetchUser?userId=${userId}`)
             const data = await response.json();
+            console.log("fetchContact", data)
             return data;
         } catch(err) {
             console.log("FetchContact Error", err);
             throw err
         }
     }
-
-    useEffect(() => {
-        if (user && user.id) {
-            fetchContacts(user.id).then(data => {
-                setFetchingContact(data.contacts || []);
-            });
-        }
-    }, [user])
-
 
     // AddContact Api Call
     const addContact = async (addContactData) => {
@@ -101,19 +93,15 @@ function App() {
             console.log("addContact Error", err);
             throw err;
         }
-
-    
     }
 
     return (
         <Routes>
-            <Route path='/' element={ <Login login={login} setUser={setUser} /> } />
+            <Route path='/' element={ <Login login={login} /> } />
             <Route path='/signup' element={ <SignUp signup={signup} /> } />
-            <Route path='/dashboard' element={ <Dashboard user={user} fetchContactS={fetchContacts} /> } />
-            <Route path='/addContact' element={ <AddContact addContact={addContact} user={user} setFetchingContact={setFetchingContact} /> } />
+            <Route path='/dashboard' element={ <Dashboard fetchUser={fetchUser} fetchContactS={fetchContacts} /> } />
+            <Route path='/addContact' element={ <AddContact addContact={addContact} /> } />
         </Routes>
-        // <Dashboard />
-        // <AddContact />
     )
 }
 

@@ -126,7 +126,7 @@ app.get("/fetchUser", async (req, res) => {
             data: result[0]
         })
 
-    } catch(err) {
+    } catch(err) {     
         console.log("Error fetching user:", err);
         return res.send({
             ok: false,

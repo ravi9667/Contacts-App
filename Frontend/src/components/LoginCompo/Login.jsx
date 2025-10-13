@@ -5,7 +5,7 @@ import Button from "../../ReusableComponents/Button/Button"
 import { useNavigate } from "react-router";
 import "./login.scss";
 
-const Login = ({login, setUser}) => {
+const Login = ({login}) => {
     const navigate = useNavigate();
     const [ isPasswordHidden, setIsPasswordHidden ] = useState(true)
     const [loginFormData, setLoginFormData] = useState({
@@ -30,10 +30,10 @@ const Login = ({login, setUser}) => {
             console.log("login Response", response);
 
             if(response.ok === true) {
-                setUser({
-                    ...response.data,
-                    id: response.data._id
-                });
+                // setUser({
+                //     ...response.data,
+                //     id: response.data._id
+                // });
                 navigate('/dashboard');
             } else {
                 alert(response.message || "Login failed");
