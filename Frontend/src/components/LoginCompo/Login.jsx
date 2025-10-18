@@ -5,7 +5,7 @@ import Button from "../../ReusableComponents/Button/Button"
 import { useNavigate } from "react-router";
 import "./login.scss";
 
-const Login = ({login}) => {
+const Login = ({login, setLoginApiData}) => {
     const navigate = useNavigate();
     const [ isPasswordHidden, setIsPasswordHidden ] = useState(true)
     const [loginFormData, setLoginFormData] = useState({
@@ -15,7 +15,6 @@ const Login = ({login}) => {
     const handleFormInput = (field, event) => {
         setLoginFormData({...loginFormData, [field]: event.target.value})
     }
-    console.log(loginFormData)
     const showPassword = () => {
         if (isPasswordHidden) {
             setIsPasswordHidden(false);
@@ -27,13 +26,9 @@ const Login = ({login}) => {
     const handleLogin = async () => {
         try {
             const response = await login(loginFormData);
-            console.log("login Response", response);
-
+            console.log('response', response)
             if(response.ok === true) {
-                // setUser({
-                //     ...response.data,
-                //     id: response.data._id
-                // });
+                setLoginApiData(response?.data)
                 navigate('/dashboard');
             } else {
                 alert(response.message || "Login failed");

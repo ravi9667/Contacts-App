@@ -16,7 +16,6 @@ const SignUp = ({signup}) => {
     const handleFormInput = (field, event) => {
         setSignupFormData({...signupFormData, [field]: event.target.value})
     }
-    console.log(signupFormData)
     const showPassWord = () => {
         if (isPasswordHidden) {
             setIsPasswordHidden(false);

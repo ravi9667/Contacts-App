@@ -184,7 +184,7 @@ app.post("/addContact", async (req, res) => {
         if (existingContact.length > 0) {
             return res.send({
                 ok: false,
-                message: "Contact Already Exits",
+                message: "Contact Already Exists",
             });
         }
 
@@ -192,6 +192,7 @@ app.post("/addContact", async (req, res) => {
             name,
             phoneNumber,
             age,
+            userId
         }
 
         const addContact = await ContactsData.create(contactData);
@@ -226,11 +227,6 @@ app.delete("/deleteContact", async (req, res) => {
                 message: "Contact Deleted Successfully"
             })
 
-        } else {
-            return res.send({
-                ok: false,
-                message: "No contact found with that ID."
-            })
         }
 
     } catch(err) {

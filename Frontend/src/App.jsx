@@ -1,35 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route } from "react-router";
-import Login from './components/loginCompo/login'
+import Login from './components/LoginCompo/login';
 import SignUp from './components/signupCompo/Signup'
 import Dashboard from './components/DashboardCompo/Dashboard';
 import AddContact from './components/AddContactCompo/AddContact';
+import LoginApi from './components/LoginCompo/ApiLogin';
 import './App.scss'
 
 function App() {
-
-    // Login Api Call -->
-    async function login(loginData) {
-        try {
-            const response = await fetch('http://127.0.0.1:5050/login', {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8'
-                },
-                body: JSON.stringify(loginData)
-            });
-
-            const data = await response.json();
-            if (data && data?.id) {
-                await fetchUser(data?.id)
-                await fetchContacts(data?.id)
-            }
-            return data;
-        } catch(err) {
-            console.error("Login API error:", err);
-            alert(err)
-        }
-    }
 
     // SignUp Api Call -->
     const signup = async (signupData) => {
@@ -55,20 +33,26 @@ function App() {
         try {
             const response = await fetch(`http://127.0.0.1:5050/fetchUser?userId=${userId}`)
             const data = await response.json();
-            console.log("fetchUser", data)
-            return data
+            if(!data) {
+                alert("Failed to fetch User");
+                return;
+            }
+            return data;
         } catch(err) {
             console.log("FatchUser Error", err);
             throw err;
         }
-    }  
+    }   
 
     // FetchContacts Api call -->
     const fetchContacts = async (userId) => {
         try {
-            const response = await fetch(`http://127.0.0.1:5050/fetchUser?userId=${userId}`)
+            const response = await fetch(`http://127.0.0.1:5050/fetchContacts?userId=${userId}`)
             const data = await response.json();
-            console.log("fetchContact", data)
+            if(!data) {
+                alert("Failed to fetch User");
+                return;
+            }
             return data;
         } catch(err) {
             console.log("FetchContact Error", err);
@@ -97,9 +81,8 @@ function App() {
 
     return (
         <Routes>
-            <Route path='/' element={ <Login login={login} /> } />
+            <Route path='/*' element={ <LoginApi fetchUser={fetchUser} fetchContacts={fetchContacts} /> } />
             <Route path='/signup' element={ <SignUp signup={signup} /> } />
-            <Route path='/dashboard' element={ <Dashboard fetchUser={fetchUser} fetchContactS={fetchContacts} /> } />
             <Route path='/addContact' element={ <AddContact addContact={addContact} /> } />
         </Routes>
     )

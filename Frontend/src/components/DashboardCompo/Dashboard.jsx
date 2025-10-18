@@ -7,36 +7,18 @@ import logo from "../../assets/logo.png"
 import search from "../../assets/search.png"
 import add from "../../assets/addition.png"
 
-const Dashboard = ({fetchContacts}) => {
+const Dashboard = ({fetchContacts, fetchUser}) => {
     const navigate = useNavigate()
-
+    
     const [fetchedContact, setFetchedContact] = useState([]);
-
-    useEffect(() => {
-        const getContacts = async () => {
-            if (user?.id) {
-                try {
-                    const response = await fetchContacts(user.id);
-                    if (response.ok) {
-                        setFetchedContact(response.contacts || []);
-                    } else {
-                        console.warn("Fetch contacts failed:", response.message);
-                    }
-                } catch (err) {
-                    console.error("Error fetching contacts:", err);
-                }
-            }
-        };
-
-        getContacts();
-    }, [user, fetchContacts]);
+    const { name, email } = fetchUser;
     
     return (
         <div className="dash-container">
             <div className="dash-header">
                 <div className="user-detail">
-                    <div className="user-name">{user.name}</div>
-                    <div className="user-email">{user.email}</div>
+                    <div className="user-name">Name</div>
+                    <div className="user-email">Email</div>
                 </div>
                 <h1 className="contact-header">Contacts</h1>
                 <img src={logo} alt="user-avtar" className="user-logo" />
