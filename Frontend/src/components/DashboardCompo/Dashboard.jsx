@@ -8,6 +8,7 @@ import search from "../../assets/search.png"
 import add from "../../assets/addition.png"
 
 const Dashboard = ({fetchContacts, fetchUser}) => {
+    console.log(fetchUser)
     const navigate = useNavigate()
     
     const [fetchedContact, setFetchedContact] = useState([]);

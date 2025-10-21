@@ -4,7 +4,14 @@ import mongoose from 'mongoose';
 import { ContactsData } from './Models/contactInfo.js';
 import { UserData } from './Models/userInfo.js';
 
-mongoose.connect("mongodb://localhost:27017/contacts")
+try {
+    const mongoConnect = mongoose.connect("mongodb://localhost:27017/contacts")
+    if(mongoConnect) {
+        console.log("DB connected");
+    }
+} catch {
+    console.log("Errorn connecting DB")
+}
 const app = express();
 
 app.use(express.json())
