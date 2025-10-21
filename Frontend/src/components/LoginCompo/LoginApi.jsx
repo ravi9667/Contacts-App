@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import Login from "./login";
 import Dashboard from "../DashboardCompo/Dashboard";
+import './login.scss'
 
 const LoginApi = ({ fetchUser, fetchContacts }) => {
-    const [loginApiData, setLoginApiData] = useState(null);
-    const [fetchingUser, setFetchingUser] = useState(null);
-    const [fetchingContacts, setFetchingContacts] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const [ loginApiData, setLoginApiData ] = useState(null);
+    const [ fetchingUser, setFetchingUser ] = useState(null);
+    const [ fetchingContacts, setFetchingContacts ] = useState(null);
+    const [ isLoading, setIsLoading ] = useState(false)
 
     // Login API call -->
     async function login(loginData) {
@@ -24,13 +23,6 @@ const LoginApi = ({ fetchUser, fetchContacts }) => {
             });
 
             const data = await response.json();
-            if (data.ok === true) {
-                setLoginApiData(data.data);
-                navigate("/dashboard");
-            } else {
-                alert(data.message || "Login failed");
-            }
-
             return data;
         } catch (err) {
             console.error("Login API error:", err);
@@ -47,6 +39,7 @@ const LoginApi = ({ fetchUser, fetchContacts }) => {
                     const contacts = await fetchContacts(loginApiData);
                     setFetchingUser(user);
                     setFetchingContacts(contacts);
+                    navigate('/dashboard');
                 } catch (error) {
                     console.error("Error fetching user/contacts:", error);
                 } finally {
@@ -59,27 +52,23 @@ const LoginApi = ({ fetchUser, fetchContacts }) => {
     }, [loginApiData]);
 
     return (
-        <Routes>
-            <Route
-                path="/"
-                element={<Login login={login} setLoginApiData={setLoginApiData} />}
-            />
-            <Route
-                path="/dashboard"
-                element={
-                    isLoading ? (
-                        <div>Loading...</div>
-                    ) : fetchingUser && fetchingContacts ? (
-                        <Dashboard
-                            fetchUser={fetchingUser}
-                            fetchContacts={fetchingContacts}
-                        />
-                    ) : (
-                        <Login login={login} setLoginApiData={setLoginApiData} />
-                    )
-                }
-            />
-        </Routes>
+        <div>
+            <Login login={login} setLoginApiData={setLoginApiData} />
+            <div className="loginApi-container">
+                {isLoading && (
+                    <div className="loader-overlay">
+                    <div className="spinner"></div>
+                    <p>Loading, please wait...</p>
+                    </div>
+                )}
+
+                {fetchingUser && fetchingContacts ? (
+                    <Dashboard fetchUser={fetchingUser} fetchContacts={fetchingContacts} />
+                ) : (
+                    !isLoading && <p className="no-data">No data loaded yet.</p>
+                )}
+            </div>
+        </div>
     );
 };
 

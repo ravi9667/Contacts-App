@@ -26,10 +26,8 @@ const Login = ({login, setLoginApiData}) => {
     const handleLogin = async () => {
         try {
             const response = await login(loginFormData);
-            console.log('response', response)
             if(response.ok === true) {
                 setLoginApiData(response?.data)
-                navigate('/dashboard');
             } else {
                 alert(response.message || "Login failed");
             }

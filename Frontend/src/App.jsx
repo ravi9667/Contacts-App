@@ -4,7 +4,7 @@ import Login from './components/LoginCompo/login';
 import SignUp from './components/signupCompo/Signup'
 import Dashboard from './components/DashboardCompo/Dashboard';
 import AddContact from './components/AddContactCompo/AddContact';
-import LoginApi from './components/LoginCompo/ApiLogin';
+import LoginApi from './components/LoginCompo/LoginApi';
 import './App.scss'
 
 function App() {
@@ -80,11 +80,16 @@ function App() {
     }
 
     return (
-        <Routes>
-            <Route path='/*' element={ <LoginApi fetchUser={fetchUser} fetchContacts={fetchContacts} /> } />
-            <Route path='/signup' element={ <SignUp signup={signup} /> } />
-            <Route path='/addContact' element={ <AddContact addContact={addContact} /> } />
-        </Routes>
+        <div>
+            <LoginApi fetchUser={fetchUser} fetchContacts={fetchContacts} />
+
+            <Routes>
+                <Route path='/login' element={ <Login /> } />
+                <Route path='/dashboard' element={ <Dashboard /> } />
+                <Route path='/signup' element={ <SignUp signup={signup} /> } />
+                <Route path='/addContact' element={ <AddContact addContact={addContact} /> } />
+            </Routes>
+        </div>
     )
 }
 
