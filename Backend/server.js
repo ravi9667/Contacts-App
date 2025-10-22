@@ -10,7 +10,7 @@ try {
         console.log("DB connected");
     }
 } catch {
-    console.log("Errorn connecting DB")
+    console.log("Error connecting DB")
 }
 const app = express();
 
@@ -88,7 +88,9 @@ app.post("/login", async (req, res) => {
         res.status(200).send({
             ok: true,
             message: 'Login SuccessFully',
-            data: result[0]._id
+            data: {
+                id: result[0]._id
+            }
         })
 
     } catch(err) {
