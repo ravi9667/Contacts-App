@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 7px;
+    // padding: 7px;
     
     .name {
         margin: 0;
@@ -23,6 +23,8 @@
     .delete-box {
         width: 15%;
         text-align: center;
+        background: none !important;
+        margin: 0;
     }
     img {
         width: 21px;

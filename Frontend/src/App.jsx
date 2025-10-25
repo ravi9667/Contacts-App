@@ -27,31 +27,12 @@ function App() {
         }
     }
 
-    // AddContact Api Call
-    const addContact = async (addContactData) => {
-        try {
-            const response = await fetch("http://127.0.0.1:5050/addContact", {
-                method: "POST",
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8'
-                },
-                body: JSON.stringify(addContactData)
-            });
-
-            const data = await response.json();
-            return data;
-        } catch(err) {
-            console.log("addContact Error", err);
-            throw err;
-        }
-    }
-
     return (
         <Routes>
             <Route path='/' element={ <Login /> } />
             <Route path='/dashboard' element={ <Dashboard /> } />
             <Route path='/signup' element={ <SignUp signup={signup} /> } />
-            <Route path='/addContact' element={ <AddContact addContact={addContact} /> } />
+            <Route path='/addContact' element={ <AddContact /> } />
         </Routes>
     )
 }

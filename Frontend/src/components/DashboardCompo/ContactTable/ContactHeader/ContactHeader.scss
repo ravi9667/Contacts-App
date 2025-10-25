@@ -1,0 +1,34 @@
+.contact-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(0, 89, 255);
+            padding: 10px;
+            
+            .contact-title {
+                margin: 0;
+                color: white;
+                // width: 25%;
+            }
+            .contact-name {
+                width: 40%;
+                // position: relative;
+                // left: -25px;
+                text-align: center;
+            }
+            .contact-phnNo {
+                width: 25%;
+                // position: relative;
+                // left: -25px;
+                text-align: center;
+            }
+            .contact-age {
+                width: 20%;
+                // position: relative;
+                // left: -15px;
+                text-align: center;
+            }
+            .contact-empty {
+                width: 15%;
+            }
+        }

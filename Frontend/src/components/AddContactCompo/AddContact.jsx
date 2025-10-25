@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import Button from "../../ReusableComponents/Button/Button"
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Dashboard from "../DashboardCompo/Dashboard";
 import "./AddContact.scss"
 
-const AddContact = ({addContact, user, setFetchingContact}) => {
+const AddContact = () => {
     const navigate = useNavigate()
+    const location = useLocation();
+    const params = new URLSearchParams(location.search)
+    const userId = params.get("userId")
     const [ addContactFormData, setAddContactFormData ] = useState({
         name: '',
         phoneNumber: '',
@@ -16,18 +19,36 @@ const AddContact = ({addContact, user, setFetchingContact}) => {
         setAddContactFormData({...addContactFormData, [field]: event.target.value})
     }
 
+    // AddContact Api Call
+    const addContact = async (addContactData) => {
+        try {
+            const response = await fetch("http://127.0.0.1:5050/addContact", {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                },
+                body: JSON.stringify(addContactData)
+            });
+
+            const data = await response.json();
+            return data;
+        } catch(err) {
+            console.log("addContact Error", err);
+            throw err;
+        }
+    }
+
     const handleAddContact = async () => {
         try {
             const apiData = {
                 name: addContactFormData.name,
                 phoneNumber: addContactFormData.phoneNumber,
-                age: addContactFormData,
-                userId: user
+                age: addContactFormData.age,
+                userId: userId
             }
             const response = await addContact(apiData);
             if(response.ok === true) {
                 navigate('/dashboard')
-                setFetchingContact(response)
             } else {
                 alert(response.message || "adding Contact failed");
             }

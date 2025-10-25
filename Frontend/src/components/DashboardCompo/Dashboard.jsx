@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Contact from "../ContactsCompo/Contacts";
+import ContactTable from "./ContactTable/ContactTable";
 import AddContact from "../AddContactCompo/AddContact";
+import Header from "./Header/Header";
 import { useLocation, useNavigate } from "react-router";
+import SearchAdd from "./SearchAdd/SearchAdd";
 import './Dashboard.scss'
-import logo from "../../assets/logo.png"
-import search from "../../assets/search.png"
-import add from "../../assets/addition.png"
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -16,77 +15,84 @@ const Dashboard = () => {
     const [fetchContact, setFetchContact] = useState([])
 
     // FetchUser Api Call -->
-    const fetchUser = async () => {
+    const fetchUser = async (userId) => {
         try {
             const response = await fetch(`http://127.0.0.1:5050/fetchUser?userId=${userId}`)
             const data = await response.json();
             console.log(data)
-            // if(data.ok) {
-            //     alert()
-            // }
+            if(data.ok) {
+                setFetchUserDetails(data?.data)
+            } else {
+                alert("Failed to fetch User detail");
+                return;
+            }
             return data;
         } catch(err) {
             console.log("FatchUser Error", err);
             throw err;
         }
     }
-    fetchUser()   
 
     // FetchContacts Api call -->
-    const fetchContacts = async () => {
+    const fetchContacts = async (userId) => {
+        console.log(userId)
         try {
             const response = await fetch(`http://127.0.0.1:5050/fetchContacts?userId=${userId}`)
             const data = await response.json();
-            if(!data) {
-                alert("Failed to fetch User");
+            console.log(data)
+            if(data.ok) {
+                setFetchContact(data?.data)
+            } else {
+                alert("Failed to fetch User Contacts");
                 return;
-            }
+            } 
             return data;
         } catch(err) {
             console.log("FetchContact Error", err);
-            throw err
+            throw err;
+            // alert(err)
         }
     }
+
+    const handleDeleteContact = async (_id) => {
+        try {
+            const response = await fetch("http://127.0.0.1:5050/deleteContact", {
+                method: 'DELETE',
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                },
+                body: JSON.stringify({contactId: _id})
+            });
+            const data = await response.json();
+            if(data?.ok) {
+                const updatedContacts = fetchContact.filter((contact) => contact._id !== _id);
+                setFetchContact(updatedContacts);
+            }
+            else {
+                alert(data?.message)
+            }
+        } catch(err) {
+            alert(err.message)
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (userId) {
+                await fetchUser(userId);
+                await fetchContacts(userId);
+            }
+        };
+        fetchData();
+    }, [userId]);
+
     
     return (
         <div className="dash-container">
-            <div className="dash-header">
-                <div className="user-detail">
-                    <div className="user-name">Name</div>
-                    <div className="user-email">Email</div>
-                </div>
-                <h1 className="contact-header">Contacts</h1>
-                <img src={logo} alt="user-avtar" className="user-logo" />
-            </div>
-            <div className="search-addCont">
-                <div className="search-box">
-                    <img src={search} alt="" className="search-icon"/>
-                    <input type="text" className="search-input" placeholder="Search here..." />
-                </div>
-                <img src={add} onClick={() => navigate('/addContact')} alt="add-Contact" className="addContact-btn" />
-            </div>  
-            <div className="contacts-cntr">
-                <div className="contact-header">
-                    <p className="contact-title contact-name">Name</p>
-                    <p className="contact-title contact-phnNo">Phone No.</p>
-                    <p className="contact-title contact-age">Age</p>
-                    <p className="contact-title contact-empty"></p>
-                </div>
-                <div className="contacts">
-                    {fetchContact.map((contact, idx) => {
-                        return (
-                            <Contact 
-                                key={idx}
-                                userId={contact.userId}
-                                name={contact.name}
-                                phoneNumber={contact.phoneNumber}
-                                age={contact.age}
-                                contactId={contact._id}
-                            />
-                        )
-                    })}
-                </div>
-            </div>
+            <Header fetchUser={fetchUserDetails} />
+            <SearchAdd userId={userId} /> 
+            <ContactTable fetchContact={fetchContact} handleDeleteContact={handleDeleteContact} />
         </div>
     )
 }

@@ -20,7 +20,6 @@ const contactsSchema = mongoose.Schema({
     },
     contactId: {
         type: String,
-        required: true
     }
 });
 

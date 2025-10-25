@@ -105,6 +105,7 @@ app.post("/login", async (req, res) => {
 app.get("/fetchUser", async (req, res) => {
     try {
         const {userId} = req.query;
+        console.log(userId)
         if(!userId) {
             return res.send({
                 ok: false,
@@ -148,6 +149,7 @@ app.get("/fetchUser", async (req, res) => {
 app.get("/fetchContacts", async (req, res) => {
     try {
         const { userId } = req.query;
+        console.log(userId, "contact")
         if(!userId) {
             return res.send({
                 ok: false,
@@ -155,7 +157,14 @@ app.get("/fetchContacts", async (req, res) => {
             })
         }
 
-        const result = await ContactsData.find({userId: userId});
+        const result = await ContactsData.find(
+            {
+                userId: userId
+            },
+            {
+                userId: 0
+            }
+        );
         console.log(result)
         if (!result.length) {
             return res.send({
@@ -208,7 +217,7 @@ app.post("/addContact", async (req, res) => {
         res.status(200).send({
             ok: true,
             message: "Contact Added Successfully",
-            data: addContact[0]
+            data: addContact
         });
     } catch(err) {
         console.log(err)

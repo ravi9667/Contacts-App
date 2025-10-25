@@ -1,18 +1,20 @@
 import React from "react";
-import deleteIcon from "../../assets/delete.png";
+import deleteIcon from '../../../../assets/delete.png'
 import "./Contacts.scss";
 
-const Contact = ({name, phoneNumber, age, userId, contactId}) => {
+const Contacts = ({contact, handleDeleteContact}) => {
+    const {name, phoneNumber, age} = contact;
+
     return (
         <div className="contact-container">
             <p className="name">{name}</p>
             <p className="phoneNum">{phoneNumber}</p>
             <p className="age">{age}</p>
-            <div className="delete-box">
+            <button className="delete-box" onClick={() => handleDeleteContact(contact._id)}>
                 <img src={deleteIcon} alt="delete-icon" />
-            </div>
+            </button>
         </div>
-    );
-};
+    )
+}
 
-export default Contact;
+export default Contacts;

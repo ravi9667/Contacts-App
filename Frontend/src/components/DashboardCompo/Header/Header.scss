@@ -1,0 +1,38 @@
+@import "../../../colors/colors.scss";
+
+@mixin font1($size, $weight) {
+    font-size: $size;
+    font-weight: $weight;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dash-header {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 7px;
+
+    .user-detail {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+
+        .user-name {
+            @include font1(1rem,500);
+            color: rgba(0, 0, 0, 0.973);
+            
+        }
+        .user-email {
+            @include font1(0.7rem, 500);
+            opacity: 0.9;
+        }
+    }
+    .contacts-header {
+        width: 60%;
+    }
+    .user-logo {
+        width: 50px;
+        justify-self: flex-end;
+    }
+}

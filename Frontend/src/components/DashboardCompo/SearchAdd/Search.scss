@@ -1,0 +1,57 @@
+@import "../../../colors/colors.scss";
+
+@mixin font1($size, $weight) {
+    font-size: $size;
+    font-weight: $weight;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.search-addCont {
+    display: flex;
+    position: relative;
+
+    .search-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 10px;
+        // position: relative;
+
+        .search-icon {
+            width: 25px;
+            height: 26px;
+            padding: 1px;
+            // position: absolute;
+            left: 2px;
+            border: 1px solid #aaa9a9;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            border-bottom-left-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+        .search-input {
+            outline: none;
+            border: 1px solid #aaa9a9;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            height: 26px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            padding: 0 10px;
+        }
+    }
+    .addContact-btn {
+        display: flex;
+        width: 34px;
+        height: 32px;
+        position: absolute;
+        right: 10px;
+        
+        &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        &:active {
+            opacity: 1;
+        }
+    }
+    
+}
