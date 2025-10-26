@@ -13,6 +13,7 @@ const Dashboard = () => {
     const userId = params.get("userId")
     const [fetchUserDetails, setFetchUserDetails] = useState()
     const [fetchContact, setFetchContact] = useState([])
+    const [searchContacts, setSearchContacts] = useState("")
 
     // FetchUser Api Call -->
     const fetchUser = async (userId) => {
@@ -91,8 +92,8 @@ const Dashboard = () => {
     return (
         <div className="dash-container">
             <Header fetchUser={fetchUserDetails} />
-            <SearchAdd userId={userId} /> 
-            <ContactTable fetchContact={fetchContact} handleDeleteContact={handleDeleteContact} />
+            <SearchAdd userId={userId} searchContacts={searchContacts} setSearchContacts={setSearchContacts} /> 
+            <ContactTable fetchContact={fetchContact} handleDeleteContact={handleDeleteContact} searchContacts={searchContacts} />
         </div>
     )
 }

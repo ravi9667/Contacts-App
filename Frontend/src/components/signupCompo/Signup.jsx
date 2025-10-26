@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import show from "../../assets/eye.png"
 import hide from "../../assets/hide.png"
+import ContactIllustration from "../../assets/contact-illustration.png"
 import Button from "../../ReusableComponents/Button/Button"
 import { useNavigate } from "react-router";
 import './Signup.scss'
@@ -41,10 +42,13 @@ const SignUp = ({signup}) => {
 
     return (
         <div className="signup-container">
-            <div className="left-Image"></div>
+            <div className="left-image">
+                <h1 className="signup-contacts-title">Contacts</h1>
+                <img src={ContactIllustration} alt="Contact-illustration" className="contact-illustration" />
+            </div>
             <div className="signup-main">
                 <div className="signup-card">
-                    <h1 className="signup-Heading">Login</h1>
+                    <h1 className="signup-Heading">Sign Up</h1>
                     <div className="input-group group-1">
                        <input 
                             type="text" 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route } from "react-router";
-import Login from './components/loginCompo/login';
+import Login from './components/LoginCompo/Login';
 import SignUp from './components/signupCompo/Signup'
 import Dashboard from './components/DashboardCompo/Dashboard';
 import AddContact from './components/AddContactCompo/AddContact';

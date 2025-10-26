@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import show from "../../assets/eye.png"
 import hide from "../../assets/hide.png"
+import ContactIllustration from "../../assets/contact-illustration.png"
 import Button from "../../ReusableComponents/Button/Button"
 import { useNavigate } from "react-router";
 import Loader from "../../ReusableComponents/Loader/Loader";
@@ -57,7 +58,10 @@ const Login = () => {
             <Loader />
         ) : (
             <div className="login-container">
-                <div className="left-image"></div>
+                <div className="left-image">
+                    <h1 className="login-contacts-title">Contacts</h1>
+                    <img src={ContactIllustration} alt="Contact-illustration" className="contact-illustration" />
+                </div>
                 <div className="login-main">
                     <div className="login-card">
                         <h1 className="login-Heading">Login</h1>
