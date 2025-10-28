@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router";
 import Login from './components/LoginCompo/Login';
 import SignUp from './components/signupCompo/Signup'
 import Dashboard from './components/DashboardCompo/Dashboard';
-import AddContact from './components/AddContactCompo/AddContact';
 import './App.scss'
 
 function App() {
@@ -32,7 +31,6 @@ function App() {
             <Route path='/' element={ <Login /> } />
             <Route path='/dashboard' element={ <Dashboard /> } />
             <Route path='/signup' element={ <SignUp signup={signup} /> } />
-            <Route path='/addContact' element={ <AddContact /> } />
         </Routes>
     )
 }
